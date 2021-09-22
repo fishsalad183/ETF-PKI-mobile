@@ -1,4 +1,4 @@
-package com.example.medenjaci
+package com.pki.medenjaci
 
 import org.junit.Test
 

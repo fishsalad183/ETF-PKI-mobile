@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="text_color">#FF1E2D2F</color>
+    <color name="background_color">#FFFCF2DC</color>
+    <color name="navbar_text_color">#FF2E1F27</color>
+    <color name="upper_navbar_color">#FFECB535</color>
+    <color name="lower_navbar_color">#FFF2CD75</color>
+    <color name="button_active_color">#FF562C2C</color>
+    <color name="product_background_color_1">#FF27213C</color>
+    <color name="product_background_color_2">#FF30323D</color>
+    <color name="discount_price_color">#FF78DA6C</color>
+    <color name="rust_color">#FFB13F06</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

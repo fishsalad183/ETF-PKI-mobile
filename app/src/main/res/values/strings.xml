@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Medenjaci</string>
+    <string name="price">%1$d RSD</string>
+    <string name="product_name_placeholder">Proizvod</string>
 </resources>
