@@ -36,6 +36,8 @@ object Data {
         User(2, "Jovan", "Jovanovic", "0612233322", "Zmajeva 123", "salesman", "prodavac", "pass"),
     )
 
+    var currentUser: User? = null
+
     val products = mutableListOf(
         Product(
             1,

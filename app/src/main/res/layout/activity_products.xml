@@ -8,7 +8,7 @@
     tools:context=".ProductsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/products_recycler_view"
+        android:id="@+id/rv_products"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,5 +18,5 @@
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:spanCount="2"
         tools:itemCount="12"
-        tools:listitem="@layout/product_item" />
+        tools:listitem="@layout/item_products" />
 </androidx.constraintlayout.widget.ConstraintLayout>
