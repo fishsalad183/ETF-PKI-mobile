@@ -10,6 +10,7 @@ class ProductsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
+        supportActionBar?.title = getString(R.string.all_products)
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_products)
         recyclerView.apply {

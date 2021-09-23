@@ -1,16 +1,28 @@
 package com.pki.medenjaci
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 
 class LoginActivity : AppCompatActivity() {
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.title = getString(R.string.login)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val username = findViewById<EditText>(R.id.et_login_username)
         val password = findViewById<EditText>(R.id.et_login_password)

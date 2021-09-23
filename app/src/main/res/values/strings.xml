@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">Medenjaci</string>
+    <string name="all_products">Svi proizvodi</string>
+    <string name="product_details">Detalji proizvoda</string>
     <string name="price_short">%1$d RSD</string>
-    <string name="price_full">Cena: %1$d RSD</string>
+    <string name="price_long">Cena: %1$d RSD</string>
+    <string name="price_discount_long">Cena: %1$d %2$d RSD</string>
     <string name="product_name_placeholder">Proizvod</string>
     <string name="add_to_cart">Dodaj u korpu</string>
     <string name="added_to_cart">Dodato u korpu: %1$d x %2$s</string>
     <string name="amount">Količina: </string>
+    <string name="must_login_before_action">Morate se ulogovati da biste to učinili</string>
+    <string name="username">Korisničko ime</string>
+    <string name="password">Lozinka</string>
     <string name="login">Uloguj se</string>
     <string name="login_successful">Uspešno ste ulogovani</string>
-    <string name="login_unsuccessful_wrong_credentials">Pogrešni kredencijali!</string>
+    <string name="login_unsuccessful_wrong_credentials">Neispravni kredencijali!</string>
 </resources>
