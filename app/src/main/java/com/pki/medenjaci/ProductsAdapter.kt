@@ -18,7 +18,8 @@ class ProductsAdapter(private val products: MutableList<Product>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_products, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_products, parent, false)
         view.setOnClickListener {
             val intent = Intent(parent.context, ProductDetailsActivity::class.java)
             intent.putExtra("productID", viewType)
@@ -30,7 +31,7 @@ class ProductsAdapter(private val products: MutableList<Product>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.title.text = product.name
-        holder.image.setImageResource(product.imgID)
+        holder.image.setImageResource(product.imgResourceID)
 
         val context = holder.price.context
         if (product.discountPrice != null) {

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
-import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,6 +15,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.product_details)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        initElements()
+    }
+
+    private fun initElements() {
         val productID = intent.getIntExtra("productID", -1)
         val product = Data.products.find { it.id == productID } ?: TODO()
 
@@ -24,7 +27,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         val description = findViewById<TextView>(R.id.lbl_productdetails_description)
         description.text = product.description
         val img = findViewById<ImageView>(R.id.img_productdetails)
-        img.setImageResource(product.imgID)
+        img.setImageResource(product.imgResourceID)
 
         val price = findViewById<TextView>(R.id.lbl_productdetails_price)
         if (product.discountPrice != null) {

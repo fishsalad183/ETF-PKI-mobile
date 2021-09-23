@@ -4,7 +4,7 @@ data class Product(
     val id: Int,
     var name: String,
     var description: String,
-    var imgID: Int,
+    var imgResourceID: Int,
     var price: Int,
     var discountPrice: Int? = null,
 )
@@ -15,7 +15,7 @@ data class CartItem(
     var priceIncludingDiscounts: Int = product.discountPrice ?: product.price,
 )
 
-typealias Cart = MutableList<CartItem>
+typealias Cart = ArrayList<CartItem>
 
 data class User(
     val id: Int,
@@ -26,8 +26,8 @@ data class User(
     var type: String,
     var username: String,
     var password: String,
-    val cart: Cart = mutableListOf<CartItem>(),
-    val orders: MutableList<Cart> = mutableListOf<Cart>(),
+    val cart: Cart = Cart(),
+    val orders: ArrayList<Cart> = ArrayList<Cart>(),
 )
 
 object Data {
