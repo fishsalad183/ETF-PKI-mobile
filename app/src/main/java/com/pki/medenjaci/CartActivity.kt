@@ -7,29 +7,38 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pki.medenjaci.databinding.ActivityCartBinding
 
-class CartActivity : AppCompatActivity(), Renderer {
+class CartActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityCartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
         supportActionBar?.title = getString(R.string.cart)
+        binding = ActivityCartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_cart)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@CartActivity)
-            adapter = CartAdapter(Data.currentUser?.cart ?: Cart(), this@CartActivity)
+            adapter = CartAdapter(Data.currentUser?.cart ?: Cart(), ::renderOrderElements)
         }
         renderOrderElements()
     }
 
-    override fun renderOrderElements() {
-        val btnOrder = findViewById<Button>(R.id.btn_cart_order)
-        btnOrder.isEnabled = Data.currentUser?.cart?.size?.let { it > 0 } ?: false
-        btnOrder.setOnClickListener { placeOrder() }
+    private fun renderOrderElements() {
+        with (binding.btnCartOrder) {
+            isEnabled = Data.currentUser?.cart?.size?.let { it > 0 } ?: false
+            setOnClickListener { placeOrder() }
+        }
 
-        val totalPrice = findViewById<TextView>(R.id.lbl_cart_total)
-        totalPrice.text = getString(R.string.total_price, Data?.currentUser?.cart?.fold(0, { total, cartItem -> total + with (cartItem) { amount * priceIncludingDiscounts } }))
+        binding.lblCartTotal.text = getString(
+            R.string.total_price,
+            Data?.currentUser?.cart?.fold(
+                0,
+                { total, cartItem -> total + with(cartItem) { amount * priceIncludingDiscounts } })
+        )
     }
 
     private fun placeOrder() {
@@ -38,8 +47,4 @@ class CartActivity : AppCompatActivity(), Renderer {
         finish()
     }
 
-}
-
-interface Renderer {
-    fun renderOrderElements()
 }

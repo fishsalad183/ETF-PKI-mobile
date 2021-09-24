@@ -7,8 +7,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
+import com.pki.medenjaci.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -22,21 +25,29 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         supportActionBar?.title = getString(R.string.login)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val username = findViewById<EditText>(R.id.et_login_username)
-        val password = findViewById<EditText>(R.id.et_login_password)
-        val btnLogin = findViewById<Button>(R.id.btn_login)
-        btnLogin.setOnClickListener {
-            Data.currentUser = Data.users.find { it.username == username.text.toString() && it.password == password.text.toString() }
-            if (Data.currentUser != null) {
-                Toast.makeText(this, R.string.login_successful, Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                Toast.makeText(this, R.string.login_unsuccessful_wrong_credentials, Toast.LENGTH_SHORT).show()
+        with(binding) {
+            btnLogin.setOnClickListener {
+                Data.currentUser =
+                    Data.users.find { it.username == etLoginUsername.text.toString() && it.password == etLoginPassword.text.toString() }
+                Data.currentUser?.let {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        R.string.login_successful,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } ?: Toast.makeText(
+                    this@LoginActivity,
+                    R.string.login_unsuccessful_wrong_credentials,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+
     }
 }

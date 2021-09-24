@@ -16,62 +16,59 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.pki.medenjaci.databinding.ActivityMainBinding
+import com.pki.medenjaci.databinding.ActivityProductsBinding
+import com.pki.medenjaci.databinding.NavHeaderMainBinding
 
 class ProductsActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var actionBarToggle: ActionBarDrawerToggle
-    private lateinit var navView: NavigationView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         supportActionBar?.title = getString(R.string.all_products)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initDrawerLayout()
         initProductsRecyclerView()
     }
 
     private fun initDrawerLayout() {
-        drawerLayout = findViewById(R.id.drawer_layout)
-        actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, 0, 0)
-//        drawerLayout.addDrawerListener(DrawerRenderer(actionBarToggle))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBarToggle.syncState()
+        with (binding) {
+            val actionBarToggle = ActionBarDrawerToggle(this@ProductsActivity, drawerLayout, 0, 0)
+            actionBarToggle.syncState()
 
-        navView = findViewById(R.id.nav_view)
-        navView.menu.findItem(R.id.nav_all_products).isChecked = true
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_all_products -> {
-
-                    true
+            navView.menu.findItem(R.id.nav_all_products).isChecked = true
+            navView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.nav_all_products -> true
+                    R.id.nav_about_us -> {
+                        val intent = Intent(this@ProductsActivity, AboutUsActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    else -> false
                 }
-                R.id.nav_about_us -> {
-                    val intent = Intent(this, AboutUsActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                else -> false
             }
         }
-
         renderDrawerHeader()
     }
 
     private fun renderDrawerHeader() {
-        val btnLogin = navView.getHeaderView(0).findViewById<Button>(R.id.btn_nav_login)
-        btnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-        if (Data.currentUser != null) {
-            btnLogin.visibility = View.GONE
-            val userIcon = navView.getHeaderView(0).findViewById<ImageView>(R.id.img_nav_user)
-            userIcon.visibility = View.VISIBLE
-            val username = navView.getHeaderView(0).findViewById<TextView>(R.id.lbl_nav_user)
-            username.text = Data?.currentUser?.username
-            username.visibility = View.VISIBLE
+        val navViewBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
+        with (navViewBinding) {
+            btnNavLogin.setOnClickListener {
+                val intent = Intent(this@ProductsActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+            Data.currentUser?.let {
+                btnNavLogin.visibility = View.GONE
+                imgNavUser.visibility = View.VISIBLE
+                lblNavUser.text = Data?.currentUser?.username
+                lblNavUser.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -97,20 +94,21 @@ class ProductsActivity : AppCompatActivity() {
 //    }
 
     private fun initProductsRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_products)
-        recyclerView.apply {
+        binding.appMainContent.rvProducts.apply {
             layoutManager = GridLayoutManager(this@ProductsActivity, 2)
             adapter = ProductsAdapter(Data.products)
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.openDrawer(navView)
-        } else {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        with (binding) {
+            if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.openDrawer(navView)
+            } else {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            return true
         }
-        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
