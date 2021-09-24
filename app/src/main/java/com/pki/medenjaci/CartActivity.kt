@@ -28,7 +28,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun renderOrderElements() {
-        with (binding.btnCartOrder) {
+        with(binding.btnCartOrder) {
             isEnabled = Data.currentUser?.cart?.size?.let { it > 0 } ?: false
             setOnClickListener { placeOrder() }
         }

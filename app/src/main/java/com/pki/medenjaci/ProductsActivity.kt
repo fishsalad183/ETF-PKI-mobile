@@ -1,23 +1,16 @@
 package com.pki.medenjaci
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.pki.medenjaci.databinding.ActivityMainBinding
-import com.pki.medenjaci.databinding.ActivityProductsBinding
 import com.pki.medenjaci.databinding.NavHeaderMainBinding
 
 class ProductsActivity : AppCompatActivity() {
@@ -36,7 +29,7 @@ class ProductsActivity : AppCompatActivity() {
 
     private fun initDrawerLayout() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        with (binding) {
+        with(binding) {
             val actionBarToggle = ActionBarDrawerToggle(this@ProductsActivity, drawerLayout, 0, 0)
             actionBarToggle.syncState()
 
@@ -58,40 +51,18 @@ class ProductsActivity : AppCompatActivity() {
 
     private fun renderDrawerHeader() {
         val navViewBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
-        with (navViewBinding) {
+        with(navViewBinding) {
             btnNavLogin.setOnClickListener {
-                val intent = Intent(this@ProductsActivity, LoginActivity::class.java)
-                startActivity(intent)
+                startLoginActivity()
             }
             Data.currentUser?.let {
                 btnNavLogin.visibility = View.GONE
                 imgNavUser.visibility = View.VISIBLE
-                lblNavUser.text = Data?.currentUser?.username
+                lblNavUser.text = Data.currentUser?.username
                 lblNavUser.visibility = View.VISIBLE
             }
         }
     }
-
-//    inner class DrawerRenderer(private val actionBarDrawerToggle: ActionBarDrawerToggle) :
-//        DrawerLayout.DrawerListener {
-//        override fun onDrawerSlide(drawerView: View, slideOffset: Float) =
-//            actionBarDrawerToggle.onDrawerSlide(drawerView, slideOffset)
-//
-//        override fun onDrawerOpened(drawerView: View) {
-//            renderDrawerHeader()
-//            actionBarDrawerToggle.onDrawerOpened(drawerView)
-//        }
-//
-//        override fun onDrawerClosed(drawerView: View) {
-//            renderDrawerHeader()
-//            actionBarDrawerToggle.onDrawerClosed(drawerView)
-//        }
-//
-//        override fun onDrawerStateChanged(newState: Int) {
-//            renderDrawerHeader()
-//            actionBarDrawerToggle.onDrawerStateChanged(newState)
-//        }
-//    }
 
     private fun initProductsRecyclerView() {
         binding.appMainContent.rvProducts.apply {
@@ -101,7 +72,7 @@ class ProductsActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        with (binding) {
+        with(binding) {
             if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.openDrawer(navView)
             } else {
@@ -125,8 +96,7 @@ class ProductsActivity : AppCompatActivity() {
                         getString(R.string.must_login_before_action),
                         Toast.LENGTH_LONG
                     ).show()
-                    intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startLoginActivity()
                 } else {
                     val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
@@ -134,6 +104,19 @@ class ProductsActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun startLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivityForResult(intent, LoginActivity.LoginResult.LOGGED_IN.ordinal)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == LoginActivity.LoginResult.LOGGED_IN.ordinal) {
+            initDrawerLayout()
         }
     }
 
