@@ -15,15 +15,21 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ProductDetailsActivity"
             android:parentActivityName=".ProductsActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".ProductsActivity" />
         <activity
             android:name=".CartActivity"
+            android:parentActivityName=".ProductsActivity" />
+        <activity
+            android:name=".AboutUsActivity"
             android:parentActivityName=".ProductsActivity" />
     </application>
 

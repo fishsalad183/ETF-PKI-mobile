@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_all_products">
+
+    <fragment
+        android:id="@+id/nav_all_products"
+        android:name="com.pki.medenjaci.ui.products.AllProductsFragment"
+        android:label="@string/all_products"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.pki.medenjaci.ui.about.AboutUsFragment"
+        android:label="@string/about_us"
+        tools:layout="@layout/fragment_gallery" />
+
+</navigation>

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Medenjaci</string>
     <string name="all_products">Svi proizvodi</string>
+    <string name="about_us">O nama</string>
     <string name="product_details">Detalji proizvoda</string>
     <string name="price_short">%1$d RSD</string>
     <string name="price_long">Cena: %1$d RSD</string>
@@ -11,6 +12,7 @@
     <string name="amount">Količina: </string>
     <string name="amount_number">%1$d x </string>
     <string name="must_login_before_action">Morate se ulogovati da biste to učinili</string>
+    <string name="user">Korisnik</string>
     <string name="username">Korisničko ime</string>
     <string name="password">Lozinka</string>
     <string name="login">Uloguj se</string>
@@ -20,4 +22,8 @@
     <string name="total_price">Ukupno: %1$d RSD</string>
     <string name="order">Naruči</string>
     <string name="order_success">Narudžbina uspešno izvršena!</string>
+    <string name="about_us_text">
+        Pčelarska kuća „Medenjaci“ se snabdeva najfinijim pčelinjim proizvodima direktno iz sela za koje sigurno nikad niste čuli.
+        Opšte je poznato koliko su pčelinji proizvodi zdravi (i pritom ukusni), te vam toplo preporučujemo da iz udobnosti svog doma i po najpovoljnijim cenama naručite neke od njih i uverite se u kvalitet koji nudimo.
+    </string>
 </resources>
