@@ -31,6 +31,9 @@
         <activity
             android:name=".AboutUsActivity"
             android:parentActivityName=".ProductsActivity" />
+        <activity
+            android:name=".UserSettingsActivity"
+            android:parentActivityName=".ProductsActivity" />
     </application>
 
 </manifest>

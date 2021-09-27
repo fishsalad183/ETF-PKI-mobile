@@ -15,7 +15,15 @@
     <string name="user">Korisnik</string>
     <string name="username">Korisničko ime</string>
     <string name="password">Lozinka</string>
+    <string name="first_name">Ime: </string>
+    <string name="last_name">Prezime: </string>
+    <string name="phone">Telefon: </string>
+    <string name="address">Adresa: </string>
+    <string name="save_data">Sačuvaj podatke</string>
+    <string name="account_settings">Podešavanja naloga</string>
+    <string name="data_change_successful">Podaci uspešno promenjeni</string>
     <string name="login">Uloguj se</string>
+    <string name="logout">Izloguj se</string>
     <string name="login_successful">Uspešno ste ulogovani</string>
     <string name="login_unsuccessful_wrong_credentials">Neispravni kredencijali!</string>
     <string name="cart">Korpa</string>

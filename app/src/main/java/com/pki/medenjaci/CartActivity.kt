@@ -22,7 +22,14 @@ class CartActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_cart)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@CartActivity)
-            adapter = CartAdapter(Data.currentUser?.cart ?: Cart(), ::renderOrderElements)
+            adapter = Data.currentUser?.cart?.let { cart ->
+                CartAdapter(cart) { cartItem ->
+                    val i = cart.indexOf(cartItem)
+                    cart.removeAt(i)
+                    adapter?.notifyItemRemoved(i)
+                    renderOrderElements()
+                }
+            } ?: CartAdapter(Cart()) {}
         }
         renderOrderElements()
     }
@@ -35,7 +42,7 @@ class CartActivity : AppCompatActivity() {
 
         binding.lblCartTotal.text = getString(
             R.string.total_price,
-            Data?.currentUser?.cart?.fold(
+            Data.currentUser?.cart?.fold(
                 0,
                 { total, cartItem -> total + with(cartItem) { amount * priceIncludingDiscounts } })
         )

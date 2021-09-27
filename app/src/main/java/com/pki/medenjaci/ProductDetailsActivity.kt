@@ -29,6 +29,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             finish()
             return
         }
+
         with(binding) {
             lblProductdetailsTitle.text = product.name
             lblProductdetailsDescription.text = product.description

@@ -11,10 +11,6 @@ import com.pki.medenjaci.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    enum class LoginResult {
-        LOGGED_IN, NOT_LOGGED_IN
-    }
-
     private lateinit var binding: ActivityLoginBinding
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -44,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                         R.string.login_successful,
                         Toast.LENGTH_SHORT
                     ).show()
-                    setResult(LoginResult.LOGGED_IN.ordinal)
                     finish()
                 } ?: Toast.makeText(
                     this@LoginActivity,

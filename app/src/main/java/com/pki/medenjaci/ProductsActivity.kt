@@ -20,6 +20,7 @@ class ProductsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.all_products)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -28,7 +29,7 @@ class ProductsActivity : AppCompatActivity() {
     }
 
     private fun initDrawerLayout() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         with(binding) {
             val actionBarToggle = ActionBarDrawerToggle(this@ProductsActivity, drawerLayout, 0, 0)
             actionBarToggle.syncState()
@@ -36,7 +37,10 @@ class ProductsActivity : AppCompatActivity() {
             navView.menu.findItem(R.id.nav_all_products).isChecked = true
             navView.setNavigationItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.nav_all_products -> true
+                    R.id.nav_all_products -> {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                        true
+                    }
                     R.id.nav_about_us -> {
                         val intent = Intent(this@ProductsActivity, AboutUsActivity::class.java)
                         startActivity(intent)
@@ -52,14 +56,24 @@ class ProductsActivity : AppCompatActivity() {
     private fun renderDrawerHeader() {
         val navViewBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
         with(navViewBinding) {
-            btnNavLogin.setOnClickListener {
-                startLoginActivity()
-            }
             Data.currentUser?.let {
                 btnNavLogin.visibility = View.GONE
                 imgNavUser.visibility = View.VISIBLE
-                lblNavUser.text = Data.currentUser?.username
                 lblNavUser.visibility = View.VISIBLE
+                lblNavUser.text = it.username
+                lblNavUser.setOnClickListener {
+                    val intent = Intent(this@ProductsActivity, UserSettingsActivity::class.java)
+                    startActivityForResult(intent, 0)
+                }
+            } ?: run {
+                btnNavLogin.visibility = View.VISIBLE
+                imgNavUser.visibility = View.GONE
+                lblNavUser.visibility = View.GONE
+                lblNavUser.text = ""
+                btnNavLogin.setOnClickListener {
+                    val intent = Intent(this@ProductsActivity, LoginActivity::class.java)
+                    startActivityForResult(intent, 0)
+                }
             }
         }
     }
@@ -67,7 +81,11 @@ class ProductsActivity : AppCompatActivity() {
     private fun initProductsRecyclerView() {
         binding.appMainContent.rvProducts.apply {
             layoutManager = GridLayoutManager(this@ProductsActivity, 2)
-            adapter = ProductsAdapter(Data.products)
+            adapter = ProductsAdapter(Data.products) { product ->
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra("productID", product.id)
+                startActivityForResult(intent, 0)
+            }
         }
     }
 
@@ -96,7 +114,8 @@ class ProductsActivity : AppCompatActivity() {
                         getString(R.string.must_login_before_action),
                         Toast.LENGTH_LONG
                     ).show()
-                    startLoginActivity()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivityForResult(intent, 0)
                 } else {
                     val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
@@ -107,17 +126,11 @@ class ProductsActivity : AppCompatActivity() {
         }
     }
 
-    private fun startLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivityForResult(intent, LoginActivity.LoginResult.LOGGED_IN.ordinal)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == LoginActivity.LoginResult.LOGGED_IN.ordinal) {
-            initDrawerLayout()
-        }
+        // Rerender the drawer e.g. for when a user logs in or logs out
+        initDrawerLayout()
     }
 
 }
