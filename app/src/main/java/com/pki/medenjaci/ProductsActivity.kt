@@ -29,10 +29,10 @@ class ProductsActivity : AppCompatActivity() {
     }
 
     private fun initDrawerLayout() {
-
         with(binding) {
-            val actionBarToggle = ActionBarDrawerToggle(this@ProductsActivity, drawerLayout, 0, 0)
-            actionBarToggle.syncState()
+            val actionBarDrawerToggle = ActionBarDrawerToggle(this@ProductsActivity, drawerLayout, 0, 0)
+            drawerLayout.addDrawerListener(actionBarDrawerToggle)
+            actionBarDrawerToggle.syncState()
 
             navView.menu.findItem(R.id.nav_all_products).isChecked = true
             navView.setNavigationItemSelectedListener { menuItem ->
@@ -126,11 +126,15 @@ class ProductsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onResume() {
+        super.onResume()
 
-        // Rerender the drawer e.g. for when a user logs in or logs out
-        initDrawerLayout()
+        // Rerender the drawer header for when a user logs in or logs out
+        renderDrawerHeader()
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
 }
