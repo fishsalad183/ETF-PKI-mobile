@@ -112,7 +112,7 @@ class ProductsActivity : AppCompatActivity() {
                     Toast.makeText(
                         this,
                         getString(R.string.must_login_before_action),
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivityForResult(intent, 0)

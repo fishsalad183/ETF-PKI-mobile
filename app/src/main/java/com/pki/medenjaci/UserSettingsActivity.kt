@@ -53,6 +53,28 @@ class UserSettingsActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+            btnUserSettingsChangePassword.setOnClickListener {
+                Data.currentUser?.apply {
+                    if (etUserSettingsCurrentPassword.text.toString() == this.password
+                        && etUserSettingsNewPassword.text.toString() == etUserSettingsRepeatNewPassword.text.toString()
+                        && etUserSettingsNewPassword.text.toString() != ""
+                    ) {
+                        this.password = etUserSettingsNewPassword.text.toString()
+                        Toast.makeText(
+                            this@UserSettingsActivity,
+                            getString(R.string.change_password_successful),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@UserSettingsActivity,
+                            getString(R.string.change_password_unsuccessful),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
 

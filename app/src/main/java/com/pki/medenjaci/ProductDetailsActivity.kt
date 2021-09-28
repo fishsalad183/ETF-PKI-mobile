@@ -67,14 +67,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@ProductDetailsActivity,
                         getString(R.string.added_to_cart, amount, product.name),
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 } ?: run {
                     Toast.makeText(
                         this@ProductDetailsActivity,
                         getString(R.string.must_login_before_action),
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(this@ProductDetailsActivity, LoginActivity::class.java)
                     startActivity(intent)

@@ -15,6 +15,12 @@
     <string name="user">Korisnik</string>
     <string name="username">Korisničko ime</string>
     <string name="password">Lozinka</string>
+    <string name="current_password">Trenutna lozinka: </string>
+    <string name="new_password">Nova lozinka: </string>
+    <string name="new_password_repeat">Ponovljena lozinka: </string>
+    <string name="change_password">Promeni lozinku</string>
+    <string name="change_password_successful">Lozinka uspešno promenjena</string>
+    <string name="change_password_unsuccessful">Greška pri promeni lozinke!</string>
     <string name="first_name">Ime: </string>
     <string name="last_name">Prezime: </string>
     <string name="phone">Telefon: </string>
@@ -29,7 +35,7 @@
     <string name="cart">Korpa</string>
     <string name="total_price">Ukupno: %1$d RSD</string>
     <string name="order">Naruči</string>
-    <string name="order_success">Narudžbina uspešno izvršena!</string>
+    <string name="order_successful">Narudžbina uspešno izvršena!</string>
     <string name="about_us_text">
         Pčelarska kuća „Medenjaci“ se snabdeva najfinijim pčelinjim proizvodima direktno iz sela za koje sigurno nikad niste čuli.
         Opšte je poznato koliko su pčelinji proizvodi zdravi (i pritom ukusni), te vam toplo preporučujemo da iz udobnosti svog doma i po najpovoljnijim cenama naručite neke od njih i uverite se u kvalitet koji nudimo.

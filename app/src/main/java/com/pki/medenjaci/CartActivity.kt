@@ -2,8 +2,6 @@ package com.pki.medenjaci
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +48,7 @@ class CartActivity : AppCompatActivity() {
 
     private fun placeOrder() {
         Data.currentUser?.cart?.clear()
-        Toast.makeText(this, getString(R.string.order_success), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.order_successful), Toast.LENGTH_LONG).show()
         finish()
     }
 
